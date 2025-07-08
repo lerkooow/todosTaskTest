@@ -1,0 +1,17 @@
+.filterButton {
+  margin: 0;
+
+  &.active {
+    border: 2px solid #eddada;
+    border-radius: 4px;
+    padding: 2px 10px;
+  }
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.clear {
+  color: #ef4444;
+}
