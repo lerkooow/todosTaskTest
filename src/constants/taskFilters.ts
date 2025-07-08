@@ -1,0 +1,23 @@
+export enum TaskFilters {
+  All = "all",
+  Active = "active",
+  Completed = "completed",
+}
+
+export const filterOptions = {
+  [TaskFilters.All]: "No tasks...",
+  [TaskFilters.Active]: "No active tasks...",
+  [TaskFilters.Completed]: "No completed tasks...",
+};
+
+export const buttonLabels = {
+  [TaskFilters.All]: "All",
+  [TaskFilters.Active]: "Active",
+  [TaskFilters.Completed]: "Completed",
+};
+
+export const itemsOptions = {
+  [TaskFilters.All]: "items left",
+  [TaskFilters.Active]: "items active",
+  [TaskFilters.Completed]: "items completed",
+};
