@@ -1,9 +1,9 @@
 export type TaskFilters = "all" | "active" | "completed";
 
 export const TaskFilters = {
-  All: "all",
-  Active: "active",
-  Completed: "completed",
+  All: "all" as TaskFilters,
+  Active: "active" as TaskFilters,
+  Completed: "completed" as TaskFilters,
 };
 
 export const filterOptions = {
