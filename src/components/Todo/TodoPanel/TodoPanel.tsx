@@ -1,21 +1,17 @@
 import { useDispatch } from "react-redux";
 
 import { deleteTask, toggleTodo } from "../../../toolkitRedux/todoSlice";
-import { TaskFilters, filterOptions } from "../../../constants/taskFilters";
+import { type TTaskFilter, filterOptions } from "../../../constants/taskFilters";
 
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
+import type { TTodoItem } from "../../../constants/todoTypes";
+
 import s from "./TodoPanel.module.scss";
 
-type TodoItemType = {
-  id: number;
-  task: string;
-  checked: boolean;
-};
-
 interface TodoPanelProps {
-  todos: TodoItemType[];
-  filter: TaskFilters;
+  todos: TTodoItem[];
+  filter: TTaskFilter;
 }
 
 export const TodoPanel = ({ todos, filter }: TodoPanelProps) => {
@@ -42,11 +38,7 @@ export const TodoPanel = ({ todos, filter }: TodoPanelProps) => {
               />
               <span className={s.todoPanel__task}>{item.task}</span>
             </li>
-            <button
-              data-testid={`delete-${item.id}`}
-              onClick={() => dispatch(deleteTask(item.id))}
-              className={s.todoPanel__clearButton}
-            >
+            <button data-testid={`delete-${item.id}`} onClick={() => dispatch(deleteTask(item.id))} className={s.todoPanel__clearButton}>
               <DeleteOutlinedIcon />
             </button>
           </div>

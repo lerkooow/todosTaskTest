@@ -1,13 +1,13 @@
 import { useDispatch } from "react-redux";
 
-import { buttonLabels, TaskFilters } from "../../../constants/taskFilters";
+import { buttonLabels, TaskFilters, type TTaskFilter } from "../../../constants/taskFilters";
 import { clearCompleted } from "../../../toolkitRedux/todoSlice";
 
 import s from "./FilterButtons.module.scss";
 
 interface FilterButtonsProps {
-  currentFilter: TaskFilters;
-  onChangeFilter: (filter: TaskFilters) => void;
+  currentFilter: TTaskFilter;
+  onChangeFilter: (filter: TTaskFilter) => void;
 }
 
 export const FilterButtons: React.FC<FilterButtonsProps> = ({ currentFilter, onChangeFilter }) => {
@@ -16,11 +16,7 @@ export const FilterButtons: React.FC<FilterButtonsProps> = ({ currentFilter, onC
   return (
     <>
       {Object.values(TaskFilters).map((taskFilter) => (
-        <button
-          onClick={() => onChangeFilter(taskFilter)}
-          className={`${s.filterButton} ${currentFilter === taskFilter ? s.active : ""}`}
-          data-testid={`filter-${taskFilter}`}
-        >
+        <button key={taskFilter} onClick={() => onChangeFilter(taskFilter)} className={`${s.filterButton} ${currentFilter === taskFilter ? s.active : ""}`} data-testid={`filter-${taskFilter}`}>
           {buttonLabels[taskFilter]}
         </button>
       ))}

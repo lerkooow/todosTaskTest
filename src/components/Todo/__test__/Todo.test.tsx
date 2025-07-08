@@ -1,11 +1,12 @@
 import { Provider } from "react-redux";
 
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/dom";
 import "@testing-library/jest-dom";
 
 import { addTodo, resetTodos, toggleTodo } from "../../../toolkitRedux/todoSlice";
 
-import store from "../../../toolkitRedux";
+import { store } from "../../../toolkitRedux";
 
 import { TodoMain } from "../TodoMain/TodoMain";
 

@@ -29,13 +29,7 @@ export const TodoAddTask = () => {
 
   return (
     <div className={s.todoAddTask}>
-      <input
-        placeholder="What needs to be done?"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className={s.todoAddTask__input}
-      />
+      <input placeholder="What needs to be done?" value={task} onChange={(e) => setTask(e.target.value)} onKeyDown={handleKeyDown} className={s.todoAddTask__input} />
       <button onClick={handleAddTodo} className={s.todoAddTask__button} data-testid="button-add">
         <AddIcon />
       </button>

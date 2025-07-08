@@ -1,19 +1,14 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-
-export interface Todo {
-  id: number;
-  task: string;
-  checked: boolean;
-}
+import type { TTodoItem } from "../constants/todoTypes";
 
 interface TodosState {
-  todos: Todo[];
+  todos: TTodoItem[];
   nextId: number;
 }
 
 export const initialState: TodosState = {
-  todos: JSON.parse(localStorage.getItem("todos")!) || [],
-  nextId: JSON.parse(localStorage.getItem("nextId")!) || 1,
+  todos: [],
+  nextId: 1,
 };
 
 const todosSlice = createSlice({
@@ -21,38 +16,29 @@ const todosSlice = createSlice({
   initialState,
   reducers: {
     addTodo(state, action: PayloadAction<string>) {
-      const newTask: Todo = {
+      const newTask: TTodoItem = {
         id: state.nextId,
         task: action.payload,
         checked: false,
       };
       state.todos.push(newTask);
       state.nextId += 1;
-      localStorage.setItem("todos", JSON.stringify(state.todos));
-      localStorage.setItem("nextId", JSON.stringify(state.nextId));
     },
     toggleTodo(state, action: PayloadAction<number>) {
-      const todoId = action.payload;
-      const todo = state.todos.find((todo) => todo.id === todoId);
+      const todo = state.todos.find((item) => item.id === action.payload);
       if (todo) {
         todo.checked = !todo.checked;
-        localStorage.setItem("todos", JSON.stringify(state.todos));
       }
     },
     deleteTask(state, action: PayloadAction<number>) {
-      const todoId = action.payload;
-      state.todos = state.todos.filter((item) => item.id !== todoId);
-      localStorage.setItem("todos", JSON.stringify(state.todos));
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
     },
     clearCompleted(state) {
       state.todos = state.todos.filter((todo) => !todo.checked);
-      localStorage.setItem("todos", JSON.stringify(state.todos));
     },
     resetTodos(state) {
       state.todos = [];
       state.nextId = 1;
-      localStorage.setItem("todos", JSON.stringify(state.todos));
-      localStorage.setItem("nextId", JSON.stringify(state.nextId));
     },
   },
 });

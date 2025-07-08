@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useSelector } from "react-redux";
 
 import { selectAllTodo } from "../../../toolkitRedux/todoSlice";
 
-import { itemsOptions, TaskFilters } from "../../../constants/taskFilters";
+import { itemsOptions, TaskFilters, type TTaskFilter } from "../../../constants/taskFilters";
 
 import { TodoAddTask } from "../TodoAddTask/TodoAddTask";
 import { TodoPanel } from "../TodoPanel/TodoPanel";
@@ -13,15 +13,19 @@ import { FilterButtons } from "../FilterButtons/FilterButtons";
 import s from "./TodoDisplay.module.scss";
 
 export const TodoDisplay = () => {
-  const [filter, setFilter] = useState<TaskFilters>(TaskFilters.All);
+  const [filter, setFilter] = useState<TTaskFilter>(TaskFilters.All);
 
   const todo = useSelector(selectAllTodo);
 
-  const filteredTodo = todo.filter((todo) => {
-    if (filter === TaskFilters.Completed) return todo.checked;
-    if (filter === TaskFilters.Active) return !todo.checked;
-    return true;
-  });
+  const filteredTodo = useMemo(
+    () =>
+      todo.filter((todo) => {
+        if (filter === TaskFilters.Completed) return todo.checked;
+        if (filter === TaskFilters.Active) return !todo.checked;
+        return true;
+      }),
+    [todo, filter]
+  );
 
   const itemsLeft = todo.filter((todo) => !todo.checked).length;
 
